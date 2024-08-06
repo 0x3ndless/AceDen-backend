@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
 
 const BetSchema = new mongoose.Schema({
+  betId: {
+    type: Number,
+  },
   creator: {
     type: String,
     required: true,
   },
   opponent: {
     type: String,
+    default: null
   },
   bet_amount: {
     type: Number,
