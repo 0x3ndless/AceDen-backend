@@ -99,14 +99,13 @@ router.post(
     const userData = req.authData;
     const wallet = userData.verifiedAddress;
 
-    const { betId, opponent, bet_amount, targetPrice, endTime, creatorPrediction, assetType } = req.body;
+    const { betId, bet_amount, targetPrice, endTime, creatorPrediction, assetType } = req.body;
 
     try {
 
         betContent = new Bet({
           betId: betId,
           creator: wallet,
-          opponent: opponent,
           bet_amount: bet_amount,
           targetPrice: targetPrice,
           endTime: endTime,
@@ -216,12 +215,14 @@ router.put('/join/:id', authenticateToken, async (req, res) => {
         return res.status(404).json({ msg: 'Bet already joined' });
     }
 
+    
+    const userData = req.authData;
+    const wallet = userData.verifiedAddress;
+
   try {
-
-    const { opponent } = req.body;
-
+    
       betContent.set({
-        opponent
+        opponent: wallet
       });
 
       await betContent.save();
