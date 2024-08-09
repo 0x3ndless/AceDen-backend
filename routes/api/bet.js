@@ -142,7 +142,7 @@ router.delete('/delete/:id', authenticateToken, async (req, res) => {
 
   try {
     // Find the bet by id
-    const bet = await Bet.findOne({ _id: req.params.id });
+    const bet = await Bet.findOne({ _id: betId });
 
     if (!bet) {
       return res.status(404).json({ error: 'Bet not found.' });
@@ -158,8 +158,10 @@ router.delete('/delete/:id', authenticateToken, async (req, res) => {
 
     await Bet.findByIdAndDelete(betId);
 
-    const remainingBet = await Bet.find({ creator: wallet }).lean();
-    res.status(200).json(remainingBet);
+    const activeBets = await Bet.find({ creator: wallet, isSettled: false }).lean();
+    // Sort bets by date in descending order
+    activeBets.sort((a, b) => new Date(b.date) - new Date(a.date));
+    res.status(200).json(activeBets);
 
   } catch (err) {
     console.error(err.message);
