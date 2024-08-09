@@ -24,6 +24,10 @@ const BetSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  joinUntill: {
+    type: Number,
+    default: 0,
+  },
   creatorPrediction: {
     type: String,
   },
