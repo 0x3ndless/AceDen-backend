@@ -21,12 +21,12 @@ const BetSchema = new mongoose.Schema({
     default: 0,
   },
   endTime: {
-    type: Number,
-    default: 0,
+    type: String,
+    default: null
   },
-  joinUntill: {
-    type: Number,
-    default: 0,
+  joinUntil: {
+    type: String,
+    default: null
   },
   creatorPrediction: {
     type: String,

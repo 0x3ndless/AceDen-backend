@@ -99,7 +99,7 @@ router.post(
     const userData = req.authData;
     const wallet = userData.verifiedAddress;
 
-    const { betId, bet_amount, targetPrice, endTime, joinUntill, creatorPrediction, assetType } = req.body;
+    const { betId, bet_amount, targetPrice, endTime, joinUntil, creatorPrediction, assetType } = req.body;
 
     try {
 
@@ -109,7 +109,7 @@ router.post(
           bet_amount: bet_amount,
           targetPrice: targetPrice,
           endTime: endTime,
-          joinUntill: joinUntill,
+          joinUntil: joinUntil,
           creatorPrediction: creatorPrediction,
           assetType: assetType,
       });
