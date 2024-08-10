@@ -76,7 +76,7 @@ router.get('/:id', async (req, res) => {
   const betId = req.params.id;
 
   try {
-    const betContent = await Bet.findOne({ _id: betId }).lean();
+    const betContent = await Bet.findById(betId).lean();
 
     if (!betContent) {
       return res.status(404).json({ error: 'Bet not found', code: 404 });
