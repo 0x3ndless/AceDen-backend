@@ -67,6 +67,26 @@ router.get("/me/active", authenticateToken, async (req, res) => {
 });
 
 
+//Getting all the opposed bets by the user
+router.get("/me/opposed", authenticateToken, async (req, res) => {
+
+  const userData = req.authData;
+  const wallet = userData.verifiedAddress;
+
+  try {
+    var bet = await Bet.find({
+      opponent: wallet,
+    }).lean();
+
+    bet.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    res.status(200).json(bet);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
 
 //---------------------------------------------------------------------------------------------------------------------
 
