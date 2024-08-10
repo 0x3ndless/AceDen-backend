@@ -57,4 +57,25 @@ router.post(
 );
 
 
+router.get('/leaderboard', async (req, res) => {
+  try {
+    const topUsers = await User.find({})
+      .sort({ total_bets: -1 })
+      .limit(100)
+      .lean(); 
+
+    const leaderboard = topUsers.map((user, index) => ({
+        rank: index + 1,
+        total_bets: user.total_bets,
+        wallet: user.wallet,
+    }));
+
+    res.json(leaderboard);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+
 module.exports = router;
